@@ -1,0 +1,131 @@
+{
+  "id": null,
+  "title": "Health Surveillance Pipeline",
+  "timezone": "browser",
+  "schemaVersion": 38,
+  "version": 1,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Pipeline Status (last)",
+      "targets": [
+        {
+          "expr": "pipeline_status{job=\"health_pipeline\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Rows Processed (last)",
+      "targets": [
+        {
+          "expr": "pipeline_rows_processed{job=\"health_pipeline\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      }
+    },
+    {
+      "type": "stat",
+      "title": "Duration (s, last)",
+      "targets": [
+        {
+          "expr": "pipeline_duration_seconds{job=\"health_pipeline\"}",
+          "refId": "A"
+        }
+      ],
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      }
+    },
+    {
+      "type": "timeSeries",
+      "title": "Rows Processed Over Time",
+      "targets": [
+        {
+          "expr": "pipeline_rows_processed{job=\"health_pipeline\"}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "type": "timeSeries",
+      "title": "Duration Over Time (s)",
+      "targets": [
+        {
+          "expr": "pipeline_duration_seconds{job=\"health_pipeline\"}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 4
+      }
+    },
+    {
+      "type": "table",
+      "title": "Top Facilities by Positivity Rate (last 14 days)",
+      "targets": [
+        {
+          "refId": "A",
+          "format": "table",
+          "datasource": {
+            "type": "postgres",
+            "uid": "Postgres"
+          },
+          "rawSql": "\n          SELECT facility_id,\n                 AVG(positivity_rate) AS avg_pos_rate,\n                 SUM(cases) AS cases,\n                 SUM(tests) AS tests\n          FROM fact_health_surveillance\n          WHERE date >= NOW()::date - INTERVAL '14 days'\n          GROUP BY facility_id\n          ORDER BY avg_pos_rate DESC\n          LIMIT 10;\n        "
+        }
+      ],
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      }
+    }
+  ]
+}
