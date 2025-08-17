@@ -1,8 +1,8 @@
 # Enterprise Data Platform (Starter)
 
-A pragmatic, portfolio-ready project that demonstrates **enterprise-grade data ops**:
+A test project to demonstrate **enterprise-grade data ops**:
 - Orchestrated pipelines (Prefect)
-- Resilient ingestion → transform → load → validate
+- Ingestion → transform → load → validate
 - Postgres as the system of record
 - Observability via Prometheus Pushgateway (success/failure, latency)
 - Tests, retries, idempotency, and documentation
@@ -71,14 +71,6 @@ enterprise_data_platform_skeleton/
   └─ README.md
 ```
 
-## Talking points for interviews
-- Idempotent upserts (avoids dupes on re-runs)
-- Explicit retries + exponential backoff
-- Data quality checks + validation errors surfaced as metrics
-- CI-ready tests; small, focused abstractions
-- Clear separation of concerns (ingest/transform/load/monitoring/config)
-- Easily extensible to Airflow/K8s if needed
-
 ## Next steps (optional upgrades)
 - Replace Pushgateway with **Prometheus + Alertmanager** rules and Grafana dashboard.
 - Add **dbt** for transformations and data modeling.
@@ -88,13 +80,9 @@ enterprise_data_platform_skeleton/
 
 ```
 
-
-
 ---
 
 ## Health Surveillance Pipeline (portfolio-ready domain example)
-
-**Why this matters:** real public‑health ETL shows you can handle regulated-ish data, quality checks, and stakeholder‑friendly metrics.
 
 ### Run it
 1. Start infra (Postgres + Prometheus/Pushgateway + Grafana):  
@@ -108,7 +96,7 @@ enterprise_data_platform_skeleton/
    ```
 
 ### What it does
-- **Ingest**: `data/health_surveillance_daily.csv` (synthetic but realistic).
+- **Ingest**: `data/health_surveillance_daily.csv` (synthetic).
 - **Transform**: schema/type validation, dedupe, compute `positivity_rate` and `case_fatality_rate`, clamp outliers.
 - **Load**: upsert to `fact_health_surveillance` (Postgres).
 - **Observe**: pushes metrics to Pushgateway with job=`health_pipeline` including extras (`facilities`, `null_rows`).
