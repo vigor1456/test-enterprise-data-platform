@@ -1,4 +1,4 @@
-# Enterprise Data Platform (Starter)
+# Test Enterprise Data Platform
 
 A test project to demonstrate **enterprise-grade data ops**:
 - Orchestrated pipelines (Prefect)
