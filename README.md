@@ -1,4 +1,4 @@
-# Test Enterprise Data Platform
+# Learning Project - Company Data Platform
 
 A learning project to demonstrate **enterprise-grade data ops**:
 - Orchestrated pipelines (Prefect)
