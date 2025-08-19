@@ -1,6 +1,6 @@
 # Test Enterprise Data Platform
 
-A test project to demonstrate **enterprise-grade data ops**:
+A learning project to demonstrate **enterprise-grade data ops**:
 - Orchestrated pipelines (Prefect)
 - Ingestion → transform → load → validate
 - Postgres as the system of record
